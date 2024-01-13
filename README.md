@@ -5,6 +5,10 @@ MyTokenUseLib.sol使用了openzeppelin上的库
 
 MyERC20.sol 实现了erc20标准的，6个标准方法，2个标准事件。
 
+ERC20 Token address:https://sepolia.etherscan.io/address/0xD74db7fe2535a10c797A65A3193dcD6a9f0A6C2a
+
+TokenBank Contract address:https://sepolia.etherscan.io/address/0x1b8566cb4372E40F676CED5BF8bEd4dbB6F77A89
+
 
 1.部署erc20合约
 
