@@ -84,6 +84,20 @@ contract TokenBank is Ownable {
     //error deposit eth too few tips
     error AmountTooLow(uint256 eth);
 
+    event DepositEvent(
+        address indexed sender,
+        uint256 amount
+    );
+
+    event WthdrawTokenEvent(
+        address indexed _address,
+        uint256 amount
+    );
+    event WthdrawEthEvent(
+        address indexed _address,
+        uint256 amount
+    );
+
     constructor(address initialOwner, address _depositToken)
         Ownable(initialOwner)
     {
@@ -102,6 +116,7 @@ contract TokenBank is Ownable {
         depositToken.transferFrom(msg.sender,address(this), _amount);
         userDepositAmount[msg.sender] += _amount;
         depositTotalAmount += _amount;
+        emit DepositEvent(msg.sender,_amount);
     }
 
     function withdraw(address payable _recipient, uint256 _amount)
@@ -112,6 +127,7 @@ contract TokenBank is Ownable {
         if (_amount <= 0 || _amount > depositTotalAmount) revert AmountTooLow(_amount);
         depositToken.transfer(_recipient, _amount);
         depositTotalAmount = depositTotalAmount - _amount;
+        emit  WthdrawTokenEvent(_recipient,_amount);
     }
 
     function withdrawEth(address payable _recipient, uint256 _amount)
@@ -124,6 +140,7 @@ contract TokenBank is Ownable {
 
         (bool success, ) = _recipient.call{value: _amount}("");
         if (!success) revert transferFailed(_recipient);
+        emit  WthdrawEthEvent(_recipient,_amount);
     }
 
 
